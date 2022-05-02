@@ -3,6 +3,7 @@ const c = canvas.getContext('2d');
 
 canvas.width = 1024;
 canvas.height = 576;
+// saving last key state to fix the movement
 this.lastKey;
 
 // add white background to the canvas
@@ -62,13 +63,6 @@ const p2 = new Sprite({
     }
 });
 
-
-/**
- * creating another variable to save the last key state and fix the movement
- * when adjusting p2, it will overwrite the value for p1. So we'll add the property to the class to make it unique to every player
- */
-let lastKey;
-
 /**
  * 
  * 
@@ -104,9 +98,9 @@ function animationLoop() {
     p2.velocity.x = 0;
     
     // p1 movement
-    if (keys.a.pressed && lastKey === 'a') {
+    if (keys.a.pressed && p1.lastKey === 'a') {
         p1.velocity.x = -1;
-    } else if (keys.d.pressed && lastKey === 'd') {
+    } else if (keys.d.pressed && p1.lastKey === 'd') {
         p1.velocity.x = 1;
     }
 
@@ -127,11 +121,11 @@ window.addEventListener('keydown', ({ key }) => {
             break;
         case 'a':
             keys.a.pressed = true;
-            lastKey = 'a';
+            p1.lastKey = 'a';
             break;
         case 'd':
             keys.d.pressed = true;
-            lastKey = 'd';
+            p1.lastKey = 'd';
             break;
 
         case 'ArrowLeft':
