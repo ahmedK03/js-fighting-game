@@ -12,9 +12,11 @@ c.fillRect(0, 0, canvas.width, canvas.height);
 const gravity = 0.7;
 // create the players
 class Sprite {
-    constructor({ position, velocity }) {
+    constructor({ position, velocity, color }) {
         this.position = position;
         this.velocity = velocity;
+        // add color var to differ bet p1 & p2
+        this.color = color;
         this.height = 150;
         // saving last key state to fix the movement
         this.lastKey;
@@ -25,12 +27,13 @@ class Sprite {
             height: 50,
 
         }
+
     }
 
 
 
     shape() {
-        c.fillStyle = '#bbf';
+        c.fillStyle = this.color;
         c.fillRect(this.position.x, this.position.y, 50, this.height);
 
         // attack box 
@@ -59,7 +62,8 @@ const p1 = new Sprite({
     velocity: {
         x: 0,
         y: 10
-    }
+    },
+    color: '#f4fa43'
 }
 );
 
@@ -71,7 +75,8 @@ const p2 = new Sprite({
     velocity: {
         x: 0,
         y: 0
-    }
+    },
+    color: '#34c9eb'
 });
 
 /**
