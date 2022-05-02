@@ -11,7 +11,7 @@ this.lastKey;
 c.fillRect(0, 0, canvas.width, canvas.height);
 
 // add a gravity var to elemenate the space under the player 
-const gravity = 0.2;
+const gravity = 0.7;
 // create the players
 class Sprite {
     constructor({ position, velocity }) {
@@ -99,16 +99,16 @@ function animationLoop() {
     
     // p1 movement
     if (keys.a.pressed && p1.lastKey === 'a') {
-        p1.velocity.x = -1;
+        p1.velocity.x = -5;
     } else if (keys.d.pressed && p1.lastKey === 'd') {
-        p1.velocity.x = 1;
+        p1.velocity.x = 5;
     }
 
     // p2 movement
     if(keys.ArrowLeft.pressed && p2.lastKey === 'ArrowLeft') {
-        p2.velocity.x = -1;
+        p2.velocity.x = -5;
     } else if (keys.ArrowRight.pressed && p2.lastKey === 'ArrowRight') {
-        p2.velocity.x = 1;
+        p2.velocity.x = 5;
     }
 }
 
@@ -117,7 +117,7 @@ animationLoop();
 window.addEventListener('keydown', ({ key }) => {
     switch (key) {
         case 'w':
-            p1.velocity.y = -10;
+            p1.velocity.y = -17;
             break;
         case 'a':
             keys.a.pressed = true;
@@ -128,6 +128,9 @@ window.addEventListener('keydown', ({ key }) => {
             p1.lastKey = 'd';
             break;
 
+        case 'ArrowUp' :
+            p2.velocity.y = -17;
+            break;
         case 'ArrowLeft':
             keys.ArrowLeft.pressed = true;
             p2.lastKey = 'ArrowLeft';
@@ -142,9 +145,6 @@ window.addEventListener('keydown', ({ key }) => {
 
 window.addEventListener('keyup', ({ key }) => {
     switch (key) {
-        case 'w':
-            p1.velocity.y -= gravity;
-            break;
         case 'a':
             keys.a.pressed = false
             break
