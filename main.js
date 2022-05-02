@@ -3,11 +3,9 @@ const c = canvas.getContext('2d');
 
 canvas.width = 1024;
 canvas.height = 576;
-// saving last key state to fix the movement
-this.lastKey;
+
 
 // add white background to the canvas
-
 c.fillRect(0, 0, canvas.width, canvas.height);
 
 // add a gravity var to elemenate the space under the player 
@@ -17,14 +15,27 @@ class Sprite {
     constructor({ position, velocity }) {
         this.position = position;
         this.velocity = velocity;
-        // this.height = 150;
+        this.height = 150;
+        // saving last key state to fix the movement
+        this.lastKey;
+        // creating the attackBox 
+        this.attackBox = {
+            position: this.position,
+            width: 100,
+            height: 50,
+
+        }
     }
 
-    height = 150;
+
 
     shape() {
         c.fillStyle = '#bbf';
         c.fillRect(this.position.x, this.position.y, 50, this.height);
+
+        // attack box 
+        c.fillStyle = 'green';
+        c.fillRect(this.attackBox.position.x, this.attackBox.position.y, this.attackBox.width, this.attackBox.height)
     }
 
     update() {
@@ -65,7 +76,6 @@ const p2 = new Sprite({
 
 /**
  * 
- * 
  *if we tried to press a and d together, a would overight the movement of d.
  *So we need to make it more sensitive using the loop function
  * 
@@ -92,11 +102,11 @@ function animationLoop() {
     c.fillRect(0, 0, canvas.width, canvas.height);
     p1.update();
     p2.update();
-    
+
     // making sure the players stop at evety frame we're not pressing any key
     p1.velocity.x = 0;
     p2.velocity.x = 0;
-    
+
     // p1 movement
     if (keys.a.pressed && p1.lastKey === 'a') {
         p1.velocity.x = -5;
@@ -105,7 +115,7 @@ function animationLoop() {
     }
 
     // p2 movement
-    if(keys.ArrowLeft.pressed && p2.lastKey === 'ArrowLeft') {
+    if (keys.ArrowLeft.pressed && p2.lastKey === 'ArrowLeft') {
         p2.velocity.x = -5;
     } else if (keys.ArrowRight.pressed && p2.lastKey === 'ArrowRight') {
         p2.velocity.x = 5;
@@ -128,7 +138,7 @@ window.addEventListener('keydown', ({ key }) => {
             p1.lastKey = 'd';
             break;
 
-        case 'ArrowUp' :
+        case 'ArrowUp':
             p2.velocity.y = -17;
             break;
         case 'ArrowLeft':
@@ -153,7 +163,7 @@ window.addEventListener('keyup', ({ key }) => {
             break
     }
 
-    switch(key) {
+    switch (key) {
         case 'ArrowLeft':
             keys.ArrowLeft.pressed = false;
             break;
