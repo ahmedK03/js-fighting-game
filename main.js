@@ -39,16 +39,16 @@ class Sprite {
     c.fillRect(this.position.x, this.position.y, this.width, this.height);
 
     // only showing the attackBox while actually attacking
-    // if (this.isAttacking) {
-    // attack box
-    c.fillStyle = "green";
-    c.fillRect(
-      this.attackBox.position.x,
-      this.attackBox.position.y,
-      this.attackBox.width,
-      this.attackBox.height
-    );
-    // }
+    if (this.isAttacking) {
+      // attack box
+      c.fillStyle = "green";
+      c.fillRect(
+        this.attackBox.position.x,
+        this.attackBox.position.y,
+        this.attackBox.width,
+        this.attackBox.height
+      );
+    }
   }
 
   update() {
@@ -130,6 +130,17 @@ const keys = {
   },
 };
 
+function collisionDamageDetect({ ele1, ele2 }) {
+  return (
+    ele1.attackBox.position.x + ele1.attackBox.width >= ele2.position.x &&
+    // dummy condition to stop the damage after passing ele2
+    ele1.attackBox.position.x <= ele2.position.x + ele2.width &&
+    // collision on the Y axis
+    ele1.attackBox.position.y + ele1.attackBox.height >= ele2.position.y &&
+    ele1.attackBox.position.y <= ele2.position.y + ele2.height
+  );
+}
+
 function animationLoop() {
   window.requestAnimationFrame(animationLoop);
   c.fillStyle = "black";
@@ -155,19 +166,32 @@ function animationLoop() {
     p2.velocity.x = 5;
   }
 
-  // detect for collision
+  // detect for collision <<for p1>>
   if (
-    p1.attackBox.position.x + p1.attackBox.width >= p2.position.x &&
-    p1.attackBox.position.x <= p2.position.x + p2.width && // dummy condition to stop after passing p2
-    // collision on the Y axis
-    p1.attackBox.position.y + p1.attackBox.height >= p2.position.y &&
-    p1.attackBox.position.y <= p2.position.y + p2.height &&
+    collisionDamageDetect({
+      ele1: p1,
+      ele2: p2,
+    }) &&
     // is attacking ??
     p1.isAttacking
   ) {
     //  to prevent the multiple attacks << repeating hit serveral times >>
     p1.isAttacking = false;
-    console.log("hit");
+    console.log("hit p1");
+  }
+
+  // detect for collision <<for p2>>
+  if (
+    collisionDamageDetect({
+      ele1: p2,
+      ele2: p1,
+    }) &&
+    // is attacking ??
+    p2.isAttacking
+  ) {
+    //  to prevent the multiple attacks << repeating hit serveral times >>
+    p2.isAttacking = false;
+    console.log("hit p2");
   }
 }
 
@@ -186,11 +210,12 @@ window.addEventListener("keydown", ({ key }) => {
       keys.d.pressed = true;
       p1.lastKey = "d";
       break;
-
     case " ":
       p1.attack();
       break;
-
+    case "k":
+      p2.attack();
+      break;
     case "ArrowUp":
       p2.velocity.y = -17;
       break;
