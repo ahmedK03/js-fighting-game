@@ -1,8 +1,12 @@
+const mainContainer = document.getElementById('main');
 const canvas = document.querySelector("canvas");
 const c = canvas.getContext("2d");
 
 canvas.width = 1024;
 canvas.height = 576;
+
+// adjusting main div width
+mainContainer.style.maxWidth = canvas.width;
 
 // add white background to the canvas
 c.fillRect(0, 0, canvas.width, canvas.height);

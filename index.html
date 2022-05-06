@@ -1,17 +1,51 @@
 <html>
+  <head>
+    <style>
+      body {
+        background-color: #302e2e;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      #main {
+        position: relative;
+      }
+      #healthBar {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        display: flex;
+        /* justify-content: space-between; */
+      }
+      .p1Health {
+        background-color: #eb5b1d;
+        height: 40px;
+        width: 100%;
+      }
+      .timer {
+        background-color: red;
+        width: 100px;
+        height: 75px;
+        flex-shrink: 0;
+      }
+      .p2Health {
+        background-color: #dd17db;
+        height: 40px;
+        width: 100%;
+      }
+    </style>
+    <script defer src="main.js"></script>
+  </head>
 
-<head>
-
-    <script src="main.js" defer></script>
-</head>
-
-<body>
-    
-    <canvas>
-        
-    </canvas>
-    
-    
-</body>
+  <body>
+    <div id="main">
+      <div id="healthBar">
+        <div class="p1Health"></div>
+        <div class="timer"></div>
+        <div class="p2Health"></div>
+      </div>
+      <canvas></canvas>
+    </div>
+  </body>
 </html>
-
