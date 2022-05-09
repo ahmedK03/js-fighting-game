@@ -1,8 +1,8 @@
-const mainContainer = document.getElementById('main');
+const mainContainer = document.getElementById("main");
 const canvas = document.querySelector("canvas");
 const c = canvas.getContext("2d");
-const p1HealthBar = document.querySelector('#p1Health');
-const p2HealthBar = document.querySelector('#p2Health');
+const p1HealthBar = document.querySelector("#p1Health");
+const p2HealthBar = document.querySelector("#p2Health");
 
 canvas.width = 1024;
 canvas.height = 576;
@@ -148,6 +148,28 @@ function collisionDamageDetect({ ele1, ele2 }) {
   );
 }
 
+let timer = 5;
+
+function matchResult() {
+  const result = document.querySelector("#matchResult");
+  result.style.display = "flex";
+
+  if (p1.health === p2.health) {
+    result.innerText = "Tie";
+  } else if (p1.health > p2.health) {
+    result.innerText = "Player 1 Wins";
+  } else result.innerText = "Player 2 Wins";
+}
+
+function decreaseTimer() {
+  if (timer > 0) {
+    setTimeout(decreaseTimer, 800);
+    timer--;
+    document.querySelector(".timer").innerHTML = timer;
+  } else matchResult();
+}
+decreaseTimer();
+
 function animationLoop() {
   window.requestAnimationFrame(animationLoop);
   c.fillStyle = "black";
@@ -186,7 +208,7 @@ function animationLoop() {
     p1.isAttacking = false;
     console.log("hit p1");
     p2.health -= 10;
-    p2HealthBar.style.width = p2.health + '%';
+    p2HealthBar.style.width = p2.health + "%";
   }
 
   // detect for collision <<for p2>>
@@ -201,7 +223,7 @@ function animationLoop() {
     //  to prevent the multiple attacks << repeating hit serveral times >>
     p2.isAttacking = false;
     p1.health -= 10;
-    p1HealthBar.style.width = p1.health + '%';
+    p1HealthBar.style.width = p1.health + "%";
     console.log("hit p2");
   }
 }

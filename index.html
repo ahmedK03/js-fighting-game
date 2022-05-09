@@ -53,6 +53,22 @@
         width: 100px;
         height: 75px;
         flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 30px;
+      }
+      #matchResult {
+        font-size: 100px;
+        position: absolute;
+        color: #fff;
+        display: none;
+        justify-content: center;
+        align-items: center;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
       }
     </style>
     <script defer src="main.js"></script>
@@ -65,12 +81,13 @@
           <div class="p1Health"></div>
           <div class="healthBar" id="p1Health" style="width: 100%"></div>
         </div>
-        <div class="timer"></div>
+        <div class="timer">15</div>
         <div class="damageContainer">
           <div class="p2Health"></div>
           <div class="healthBar" id="p2Health" style="left: 0"></div>
         </div>
       </div>
+      <div id="matchResult"></div>
       <canvas></canvas>
     </div>
   </body>
