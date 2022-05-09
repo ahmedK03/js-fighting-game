@@ -1,6 +1,8 @@
 const mainContainer = document.getElementById('main');
 const canvas = document.querySelector("canvas");
 const c = canvas.getContext("2d");
+const p1HealthBar = document.querySelector('#p1Health');
+const p2HealthBar = document.querySelector('#p2Health');
 
 canvas.width = 1024;
 canvas.height = 576;
@@ -36,6 +38,7 @@ class Sprite {
       height: 50,
     };
     this.isAttacking;
+    this.health = 100;
   }
 
   shape() {
@@ -182,6 +185,8 @@ function animationLoop() {
     //  to prevent the multiple attacks << repeating hit serveral times >>
     p1.isAttacking = false;
     console.log("hit p1");
+    p2.health -= 10;
+    p2HealthBar.style.width = p2.health + '%';
   }
 
   // detect for collision <<for p2>>
@@ -195,6 +200,8 @@ function animationLoop() {
   ) {
     //  to prevent the multiple attacks << repeating hit serveral times >>
     p2.isAttacking = false;
+    p1.health -= 10;
+    p1HealthBar.style.width = p1.health + '%';
     console.log("hit p2");
   }
 }
