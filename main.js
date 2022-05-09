@@ -148,12 +148,11 @@ function collisionDamageDetect({ ele1, ele2 }) {
   );
 }
 
-let timer = 5;
-
+let timer = 20;
 function matchResult() {
   const result = document.querySelector("#matchResult");
   result.style.display = "flex";
-
+  
   if (p1.health === p2.health) {
     result.innerText = "Tie";
   } else if (p1.health > p2.health) {
@@ -161,13 +160,15 @@ function matchResult() {
   } else result.innerText = "Player 2 Wins";
 }
 
+let timerId;
 function decreaseTimer() {
   if (timer > 0) {
-    setTimeout(decreaseTimer, 800);
+    timerId = setTimeout(decreaseTimer, 800);
     timer--;
     document.querySelector(".timer").innerHTML = timer;
   } else matchResult();
 }
+
 decreaseTimer();
 
 function animationLoop() {
@@ -225,6 +226,16 @@ function animationLoop() {
     p1.health -= 10;
     p1HealthBar.style.width = p1.health + "%";
     console.log("hit p2");
+  }
+
+  // end game based on health
+  if (p1.health <= 0 || p2.health <= 0) {
+    matchResult();
+    clearTimeout(timerId);
+    p1.velocity.x = 0;
+    p1.velocity.y = 0;
+    p2.velocity.x = 0;
+    p2.velocity.y = 0;
   }
 }
 
