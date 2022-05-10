@@ -11,7 +11,7 @@ canvas.height = 576;
 mainContainer.style.maxWidth = canvas.width;
 
 // add white background to the canvas
-c.fillRect(0, 0, canvas.width, canvas.height);
+// c.fillRect(0, 0, canvas.width, canvas.height);
 
 
 const background = new Sprite({
@@ -20,6 +20,16 @@ const background = new Sprite({
     y:0
   },
   imgSrc: './assets/background.png'
+})
+
+const shop = new Sprite({
+  position:{
+    x:630,
+    y:140
+  },
+  imgSrc: './assets/shop.png',
+  scale: 2.65,
+  framesNo: 6
 })
 // add a gravity var to elemenate the space under the player
 const gravity = 0.7;
@@ -84,7 +94,8 @@ function animationLoop() {
   window.requestAnimationFrame(animationLoop);
   c.fillStyle = "black";
   c.fillRect(0, 0, canvas.width, canvas.height);
-  background.update()
+  background.update();
+  shop.update();
   p1.update();
   p2.update();
 
@@ -142,10 +153,6 @@ function animationLoop() {
   if (p1.health <= 0 || p2.health <= 0) {
     matchResult();
     clearTimeout(timerId);
-    p1.velocity.x = 0;
-    p1.velocity.y = 0;
-    p2.velocity.x = 0;
-    p2.velocity.y = 0;
   }
 }
 

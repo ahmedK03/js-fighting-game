@@ -18,6 +18,11 @@ function matchResult() {
     } else if (p1.health > p2.health) {
         result.innerText = "Player 1 Wins";
     } else result.innerText = "Player 2 Wins";
+
+    p1.velocity.x = 0;
+    p1.velocity.y = 0;
+    p2.velocity.x = 0;
+    p2.velocity.y = 0;
 }
 
 let timer = 20;

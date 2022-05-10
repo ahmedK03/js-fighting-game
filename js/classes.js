@@ -1,19 +1,43 @@
 //  for the canvas
 class Sprite {
-  constructor({ position, imgSrc }) {
+  constructor({ position, imgSrc, scale = 1, framesNo = 1 }) {
     this.position = position;
     this.height = 150;
     this.width = 50;
     this.img = new Image();
     this.img.src = imgSrc;
+    this.scale = scale;
+    this.framesNo = framesNo;
+    this.currentFrame = 0;
+    this.framesElapsed = 0;
+    this.framesHold = 10;
   }
 
   draw() {
-    c.drawImage(this.img, this.position.x, this.position.y);
+    c.drawImage(
+      this.img,
+      // for the animation - adding 4 more argu - specifing the cropped area
+      this.currentFrame * (this.img.width / this.framesNo),
+      0,
+     (this.img.width / this.framesNo),
+      this.img.height,
+      this.position.x,
+      this.position.y,
+      (this.img.width / this.framesNo) * this.scale,
+      this.img.height * this.scale
+    );
   }
 
   update() {
     this.draw();
+    this.framesElapsed++;
+    if (this.framesElapsed % this.framesHold === 0) {
+      if (this.currentFrame < this.framesNo - 1) {
+        this.currentFrame++;
+      } else {
+        this.currentFrame = 0;
+      }
+    }
   }
 }
 
