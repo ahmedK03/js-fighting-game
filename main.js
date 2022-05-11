@@ -1,19 +1,3 @@
-const mainContainer = document.getElementById("main");
-const canvas = document.querySelector("canvas");
-const c = canvas.getContext("2d");
-const p1HealthBar = document.querySelector("#p1Health");
-const p2HealthBar = document.querySelector("#p2Health");
-
-canvas.width = 1024;
-canvas.height = 576;
-
-// adjusting main div width
-mainContainer.style.maxWidth = canvas.width;
-
-// add white background to the canvas
-// c.fillRect(0, 0, canvas.width, canvas.height);
-
-
 const background = new Sprite({
   position: {
     x:0,
@@ -43,11 +27,17 @@ const p1 = new Fighter({
     x: 0,
     y: 10,
   },
-  color: "#f4fa43",
   offset: {
     x: 0,
     y: 0,
   },
+  imgSrc: './assets/samuraiMack/idle.png',
+  framesNo: 8,
+  scale: 2.5,
+  offset: {
+    x:160,
+    y:152
+  }
 });
 
 const p2 = new Fighter({
@@ -97,7 +87,7 @@ function animationLoop() {
   background.update();
   shop.update();
   p1.update();
-  p2.update();
+  // p2.update();
 
   // making sure the players stop at evety frame we're not pressing any key
   p1.velocity.x = 0;

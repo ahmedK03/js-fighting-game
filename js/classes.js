@@ -1,6 +1,12 @@
 //  for the canvas
 class Sprite {
-  constructor({ position, imgSrc, scale = 1, framesNo = 1 }) {
+  constructor({
+    position,
+    imgSrc,
+    scale = 1,
+    framesNo = 1,
+    offset = { x: 0, y: 0 },
+  }) {
     this.position = position;
     this.height = 150;
     this.width = 50;
@@ -11,6 +17,7 @@ class Sprite {
     this.currentFrame = 0;
     this.framesElapsed = 0;
     this.framesHold = 10;
+    this.offset = offset;
   }
 
   draw() {
@@ -19,17 +26,16 @@ class Sprite {
       // for the animation - adding 4 more argu - specifing the cropped area
       this.currentFrame * (this.img.width / this.framesNo),
       0,
-     (this.img.width / this.framesNo),
+      this.img.width / this.framesNo,
       this.img.height,
-      this.position.x,
-      this.position.y,
+      this.position.x - this.offset.x,
+      this.position.y - this.offset.y,
       (this.img.width / this.framesNo) * this.scale,
       this.img.height * this.scale
     );
   }
 
-  update() {
-    this.draw();
+  animateFrames() {
     this.framesElapsed++;
     if (this.framesElapsed % this.framesHold === 0) {
       if (this.currentFrame < this.framesNo - 1) {
@@ -39,12 +45,43 @@ class Sprite {
       }
     }
   }
+  update() {
+    this.draw();
+    this.animateFrames();
+  }
 }
 
 // create the players
-class Fighter {
-  constructor({ position, velocity, color, offset }) {
-    this.position = position;
+class Fighter extends Sprite {
+  /**
+   * deleted the draw method from Fighter since we're extending from Sprite
+   * inherit the properties from Sprite to Fighter << like imgSrc, scale
+   * inherit the constructor methods via super() method
+   * removed position from Fighter to inherit it from Sprite
+   * copied the Frame properties to Fighter since they have values and it's overkill to define them in Sprite Constructor
+   */
+
+  constructor({
+    position,
+    velocity,
+    color,
+    imgSrc,
+    scale = 1,
+    framesNo = 1,
+    offset = { x: 0, y: 0 },
+  }) {
+    super({
+      position,
+      imgSrc,
+      scale,
+      framesNo,
+      offset,
+    });
+
+    this.currentFrame = 0;
+    this.framesElapsed = 0;
+    this.framesHold = 10;
+
     this.velocity = velocity;
     // add color var to differ bet p1 & p2
     this.color = color;
@@ -67,25 +104,9 @@ class Fighter {
     this.health = 100;
   }
 
-  shape() {
-    c.fillStyle = this.color;
-    c.fillRect(this.position.x, this.position.y, this.width, this.height);
-
-    // only showing the attackBox while actually attacking
-    if (this.isAttacking) {
-      // attack box
-      c.fillStyle = "green";
-      c.fillRect(
-        this.attackBox.position.x,
-        this.attackBox.position.y,
-        this.attackBox.width,
-        this.attackBox.height
-      );
-    }
-  }
-
   update() {
-    this.shape();
+    this.draw();
+    this.animateFrames();
 
     // update the attackBox position manually
     this.attackBox.position.x = this.position.x + this.attackBox.offset.x;
