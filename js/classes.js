@@ -64,11 +64,12 @@ class Fighter extends Sprite {
   constructor({
     position,
     velocity,
-    color,
     imgSrc,
     scale = 1,
     framesNo = 1,
     offset = { x: 0, y: 0 },
+    // for running and etc
+    states
   }) {
     super({
       position,
@@ -77,14 +78,10 @@ class Fighter extends Sprite {
       framesNo,
       offset,
     });
-
     this.currentFrame = 0;
     this.framesElapsed = 0;
     this.framesHold = 10;
-
     this.velocity = velocity;
-    // add color var to differ bet p1 & p2
-    this.color = color;
     this.height = 150;
     this.width = 50;
     // saving last key state to fix the movement
@@ -102,6 +99,12 @@ class Fighter extends Sprite {
     };
     this.isAttacking;
     this.health = 100;
+    this.states = states;
+
+    for (const state in this.states ) {
+      states[state].img = new Image();
+      states[state].img.src = states[state].imgSrc;
+    }
   }
 
   update() {

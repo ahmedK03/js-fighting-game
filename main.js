@@ -1,20 +1,20 @@
 const background = new Sprite({
   position: {
-    x:0,
-    y:0
+    x: 0,
+    y: 0,
   },
-  imgSrc: './assets/background.png'
-})
+  imgSrc: "./assets/background.png",
+});
 
 const shop = new Sprite({
-  position:{
-    x:630,
-    y:140
+  position: {
+    x: 630,
+    y: 140,
   },
-  imgSrc: './assets/shop.png',
+  imgSrc: "./assets/shop.png",
   scale: 2.65,
-  framesNo: 6
-})
+  framesNo: 6,
+});
 // add a gravity var to elemenate the space under the player
 const gravity = 0.7;
 
@@ -31,13 +31,23 @@ const p1 = new Fighter({
     x: 0,
     y: 0,
   },
-  imgSrc: './assets/samuraiMack/idle.png',
+  imgSrc: "./assets/samuraiMack/idle.png",
   framesNo: 8,
   scale: 2.5,
   offset: {
-    x:160,
-    y:152
-  }
+    x: 160,
+    y: 152,
+  },
+  states: {
+    idle: {
+      imgSrc: "./assets/samuraiMack/Idle.png",
+      framesNo: 8,
+    },
+    run: {
+      imgSrc: "./assets/samuraiMack/Run.png",
+      framesNo: 8,
+    },
+  },
 });
 
 const p2 = new Fighter({
@@ -49,7 +59,6 @@ const p2 = new Fighter({
     x: 0,
     y: 0,
   },
-  color: "#34c9eb",
   //   adding offset to adjust the attackBox rectangle
   offset: {
     x: -50,
@@ -80,7 +89,7 @@ const keys = {
 
 decreaseTimer();
 
-function animationLoop() {
+const animationLoop = () => {
   window.requestAnimationFrame(animationLoop);
   c.fillStyle = "black";
   c.fillRect(0, 0, canvas.width, canvas.height);
@@ -94,9 +103,12 @@ function animationLoop() {
   p2.velocity.x = 0;
 
   // p1 movement
+  p1.img = p1.states.idle.img;
   if (keys.a.pressed && p1.lastKey === "a") {
+    p1.img = p1.states.run.img;
     p1.velocity.x = -5;
   } else if (keys.d.pressed && p1.lastKey === "d") {
+    p1.img = p1.states.run.img;
     p1.velocity.x = 5;
   }
 
@@ -144,7 +156,7 @@ function animationLoop() {
     matchResult();
     clearTimeout(timerId);
   }
-}
+};
 
 animationLoop();
 
