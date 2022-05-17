@@ -47,6 +47,10 @@ const p1 = new Fighter({
       imgSrc: "./assets/samuraiMack/Run.png",
       framesNo: 8,
     },
+    jump: {
+      imgSrc: "./assets/samuraiMack/Jump.png",
+      framesNo: 2,
+    },
   },
 });
 
@@ -103,15 +107,17 @@ const animationLoop = () => {
   p2.velocity.x = 0;
 
   // p1 movement
-  p1.img = p1.states.idle.img;
   if (keys.a.pressed && p1.lastKey === "a") {
-    p1.img = p1.states.run.img;
+    p1.switchSpriteStates("run");
     p1.velocity.x = -5;
   } else if (keys.d.pressed && p1.lastKey === "d") {
-    p1.img = p1.states.run.img;
+    p1.switchSpriteStates("run");
     p1.velocity.x = 5;
-  }
+  } else p1.switchSpriteStates("idle");
 
+  if (p1.velocity.y < 0) {
+    p1.switchSpriteStates("jump");
+  }
   // p2 movement
   if (keys.ArrowLeft.pressed && p2.lastKey === "ArrowLeft") {
     p2.velocity.x = -5;

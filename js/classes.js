@@ -69,7 +69,7 @@ class Fighter extends Sprite {
     framesNo = 1,
     offset = { x: 0, y: 0 },
     // for running and etc
-    states
+    states,
   }) {
     super({
       position,
@@ -101,7 +101,7 @@ class Fighter extends Sprite {
     this.health = 100;
     this.states = states;
 
-    for (const state in this.states ) {
+    for (const state in this.states) {
       states[state].img = new Image();
       states[state].img.src = states[state].imgSrc;
     }
@@ -130,5 +130,31 @@ class Fighter extends Sprite {
     setTimeout(() => {
       this.isAttacking = false;
     }, 150);
+  }
+
+  switchSpriteStates(sprite) {
+    switch (sprite) {
+      case "idle":
+        if (this.img !== this.states.idle.img) {
+          this.img = this.states.idle.img;
+          this.framesNo = this.states.idle.framesNo;
+          this.currentFrame = 0;
+        }
+        break;
+      case "run":
+        if (this.img !== this.states.run.img) {
+          this.img = this.states.run.img;
+          this.framesNo = this.states.run.framesNo;
+          this.currentFrame = 0;
+        }
+        break;
+      case "jump":
+        if (this.img !== this.states.jump.img) {
+          this.img = this.states.jump.img;
+          this.framesNo = this.states.jump.framesNo;
+          this.currentFrame = 0;
+        }
+        break;
+    }
   }
 }
