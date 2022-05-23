@@ -120,9 +120,11 @@ class Fighter extends Sprite {
 
     if (this.position.y + this.height + this.velocity.y >= canvas.height - 94) {
       this.velocity.y = 0;
+      this.position.y = 331;
     } else {
       this.velocity.y += gravity;
     }
+    console.log(this.position.y);
   }
 
   attack() {
@@ -152,6 +154,13 @@ class Fighter extends Sprite {
         if (this.img !== this.states.jump.img) {
           this.img = this.states.jump.img;
           this.framesNo = this.states.jump.framesNo;
+          this.currentFrame = 0;
+        }
+        break;
+      case "fall":
+        if (this.img !== this.states.fall.img) {
+          this.img = this.states.fall.img;
+          this.framesNo = this.states.fall.framesNo;
           this.currentFrame = 0;
         }
         break;

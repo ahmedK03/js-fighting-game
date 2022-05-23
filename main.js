@@ -51,6 +51,10 @@ const p1 = new Fighter({
       imgSrc: "./assets/samuraiMack/Jump.png",
       framesNo: 2,
     },
+    fall: {
+      imgSrc: "./assets/samuraiMack/Fall.png",
+      framesNo: 2,
+    },
   },
 });
 
@@ -115,8 +119,11 @@ const animationLoop = () => {
     p1.velocity.x = 5;
   } else p1.switchSpriteStates("idle");
 
+  // jump & fall sprite
   if (p1.velocity.y < 0) {
     p1.switchSpriteStates("jump");
+  } else if (p1.velocity.y > 1) {
+    p1.switchSpriteStates("fall");
   }
   // p2 movement
   if (keys.ArrowLeft.pressed && p2.lastKey === "ArrowLeft") {
