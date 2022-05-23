@@ -55,6 +55,10 @@ const p1 = new Fighter({
       imgSrc: "./assets/samuraiMack/Fall.png",
       framesNo: 2,
     },
+    attack1: {
+      imgSrc: "./assets/samuraiMack/Attack1.png",
+      framesNo: 6,
+    },
   },
 });
 
@@ -143,7 +147,6 @@ const animationLoop = () => {
   ) {
     //  to prevent the multiple attacks << repeating hit serveral times >>
     p1.isAttacking = false;
-    console.log("hit p1");
     p2.health -= 10;
     p2HealthBar.style.width = p2.health + "%";
   }
@@ -161,7 +164,6 @@ const animationLoop = () => {
     p2.isAttacking = false;
     p1.health -= 10;
     p1HealthBar.style.width = p1.health + "%";
-    console.log("hit p2");
   }
 
   // end game based on health

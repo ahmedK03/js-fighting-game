@@ -124,17 +124,23 @@ class Fighter extends Sprite {
     } else {
       this.velocity.y += gravity;
     }
-    console.log(this.position.y);
   }
 
   attack() {
     this.isAttacking = true;
+    this.switchSpriteStates("attack1");
     setTimeout(() => {
       this.isAttacking = false;
     }, 150);
   }
 
   switchSpriteStates(sprite) {
+    if (
+      this.img === this.states.attack1.img &&
+      this.currentFrame < this.framesNo - 1
+    )
+      return;
+
     switch (sprite) {
       case "idle":
         if (this.img !== this.states.idle.img) {
@@ -162,6 +168,13 @@ class Fighter extends Sprite {
           this.img = this.states.fall.img;
           this.framesNo = this.states.fall.framesNo;
           this.currentFrame = 0;
+        }
+        break;
+      case "attack1":
+        if (this.img !== this.states.attack1.img) {
+          this.img = this.states.attack1.img;
+          this.framesNo = this.states.attack1.framesNo;
+          // this.currentFrame = 2;
         }
         break;
     }
