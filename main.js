@@ -76,6 +76,35 @@ const p2 = new Fighter({
     x: -50,
     y: 0,
   },
+  imgSrc: "./assets/Kenji/idle.png",
+  framesNo: 4,
+  scale: 2.5,
+  offset: {
+    x: 160,
+    y: 165,
+  },
+  states: {
+    idle: {
+      imgSrc: "./assets/Kenji/Idle.png",
+      framesNo: 4,
+    },
+    run: {
+      imgSrc: "./assets/Kenji/Run.png",
+      framesNo: 8,
+    },
+    jump: {
+      imgSrc: "./assets/Kenji/Jump.png",
+      framesNo: 2,
+    },
+    fall: {
+      imgSrc: "./assets/Kenji/Fall.png",
+      framesNo: 2,
+    },
+    attack1: {
+      imgSrc: "./assets/Kenji/Attack1.png",
+      framesNo: 4,
+    },
+  },
 });
 
 /**
@@ -108,7 +137,7 @@ const animationLoop = () => {
   background.update();
   shop.update();
   p1.update();
-  // p2.update();
+  p2.update();
 
   // making sure the players stop at evety frame we're not pressing any key
   p1.velocity.x = 0;
@@ -131,10 +160,12 @@ const animationLoop = () => {
   }
   // p2 movement
   if (keys.ArrowLeft.pressed && p2.lastKey === "ArrowLeft") {
+    p2.switchSpriteStates("run");
     p2.velocity.x = -5;
   } else if (keys.ArrowRight.pressed && p2.lastKey === "ArrowRight") {
+    p2.switchSpriteStates("run");
     p2.velocity.x = 5;
-  }
+  } else p2.switchSpriteStates("idle");
 
   // detect for collision <<for p1>>
   if (

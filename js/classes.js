@@ -127,8 +127,8 @@ class Fighter extends Sprite {
   }
 
   attack() {
-    this.isAttacking = true;
     this.switchSpriteStates("attack1");
+    this.isAttacking = true;
     setTimeout(() => {
       this.isAttacking = false;
     }, 150);
@@ -174,7 +174,7 @@ class Fighter extends Sprite {
         if (this.img !== this.states.attack1.img) {
           this.img = this.states.attack1.img;
           this.framesNo = this.states.attack1.framesNo;
-          // this.currentFrame = 2;
+          this.currentFrame = 0;
         }
         break;
     }
