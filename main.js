@@ -60,6 +60,14 @@ const p1 = new Fighter({
       framesNo: 6,
     },
   },
+  attackBox: {
+    offset: {
+      x: 120,
+      y: 50,
+    },
+    width: 150,
+    height: 50,
+  },
 });
 
 const p2 = new Fighter({
@@ -71,11 +79,7 @@ const p2 = new Fighter({
     x: 0,
     y: 0,
   },
-  //   adding offset to adjust the attackBox rectangle
-  offset: {
-    x: -50,
-    y: 0,
-  },
+  
   imgSrc: "./assets/Kenji/idle.png",
   framesNo: 4,
   scale: 2.5,
@@ -105,8 +109,15 @@ const p2 = new Fighter({
       framesNo: 4,
     },
   },
+  attackBox: {
+    offset: {
+      x: 0,
+      y: 0,
+    },
+    width: 100,
+    height: 50,
+  },
 });
-
 /**
  *
  *if we tried to press a and d together, a would overight the movement of d.
@@ -152,7 +163,7 @@ const animationLoop = () => {
     p1.velocity.x = 5;
   } else p1.switchSpriteStates("idle");
 
-  // jump & fall sprite
+  // jump & fall sprite for p1
   if (p1.velocity.y < 0) {
     p1.switchSpriteStates("jump");
   } else if (p1.velocity.y > 1) {
@@ -166,6 +177,13 @@ const animationLoop = () => {
     p2.switchSpriteStates("run");
     p2.velocity.x = 5;
   } else p2.switchSpriteStates("idle");
+
+   // jump & fall sprite for p2
+   if (p2.velocity.y < 0) {
+    p2.switchSpriteStates("jump");
+  } else if (p2.velocity.y > 1) {
+    p2.switchSpriteStates("fall");
+  }
 
   // detect for collision <<for p1>>
   if (
