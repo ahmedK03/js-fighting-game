@@ -163,6 +163,8 @@ const animationLoop = () => {
   c.fillRect(0, 0, canvas.width, canvas.height);
   background.update();
   shop.update();
+  c.fillStyle = "rgb(250, 250, 249, 0.15)";
+  c.fillRect(0, 0, canvas.width, canvas.height);
   p1.update();
   p2.update();
 
@@ -214,8 +216,9 @@ const animationLoop = () => {
     //  to prevent the multiple attacks << repeating hit serveral times >>
     p1.isAttacking = false;
     p2.takeHit(10);
-    // p2.health -= 10;
-    p2HealthBar.style.width = p2.health + "%";
+    gsap.to(p2HealthBar, {
+      width: p2.health + "%",
+    });
   }
 
   // if p1 misses
@@ -234,7 +237,9 @@ const animationLoop = () => {
     //  to prevent the multiple attacks << repeating hit serveral times >>
     p2.isAttacking = false;
     p1.takeHit(5);
-    p1HealthBar.style.width = p1.health + "%";
+    gsap.to(p1HealthBar, {
+      width: p1.health + "%",
+    });
   }
 
   // if p2 misses

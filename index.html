@@ -1,8 +1,8 @@
 <html>
   <head>
     <style>
-      @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
-      </style>
+      @import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
+    </style>
     <style>
       * {
         margin: 0;
@@ -10,7 +10,7 @@
         box-sizing: border-box;
       }
       body {
-        background-color: #302e2e;
+        background-color: #404040;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -19,17 +19,21 @@
         position: relative;
       }
       #healthBar {
+        margin: 10px 10px 0;
+        display: flex;
         position: absolute;
         top: 0;
         left: 0;
         right: 0;
-        display: flex;
         /* justify-content: space-between; */
       }
       .damageContainer {
         position: relative;
         width: 100%;
-        height: 40px;
+        /* height: 40px; */
+        border: 4px solid #fff;
+        margin-bottom: 30px;
+        margin-top: 10px;
       }
       #healthBar .damageContainer:first-child {
         display: flex;
@@ -37,35 +41,38 @@
       }
       .healthBar {
         position: absolute;
-        background-color: #2525b5;
+        background-color: #a78bfa;
         right: 0;
         top: 0;
         bottom: 0;
       }
       .p1Health {
-        background-color: #eb5b1d;
+        background-color: #f43f5e;
         height: 40px;
         width: 100%;
       }
       .p2Health {
-        background-color: #dd17db;
+        background-color: #f43f5e;
         height: 40px;
       }
       .timer {
-        background-color: red;
+        background-color: #71717a;
         width: 100px;
         height: 75px;
         flex-shrink: 0;
         display: flex;
+        color: #fafaf9;
+        border: 4.5px solid #fafaf9;
         align-items: center;
         justify-content: center;
-        font-size: 30px;
+        font-size: 15px;
+        font-family: "Press Start 2P", cursive; 
       }
       #matchResult {
-        font-size: 100px;
-        font-family: 'Press Start 2P', cursive;
+        font-size: 50px;
+        font-family: "Press Start 2P", cursive;
         position: absolute;
-        color: #fff;
+        color: #fafaf9;
         display: none;
         justify-content: center;
         align-items: center;
@@ -75,6 +82,7 @@
         right: 0;
       }
     </style>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
     <script defer src="js/const.js"></script>
     <script defer src="js/classes.js"></script>
     <script defer src="js/utilites.js"></script>
@@ -84,12 +92,12 @@
   <body>
     <div id="main">
       <div id="healthBar">
-        <div class="damageContainer">
-          <div class="p1Health"></div>
+        <div class="damageContainer" style="border-right: 0">
           <div class="healthBar" id="p1Health" style="width: 100%"></div>
+          <div class="p1Health"></div>
         </div>
         <div class="timer">15</div>
-        <div class="damageContainer">
+        <div class="damageContainer" style="border-left: 0">
           <div class="p2Health"></div>
           <div class="healthBar" id="p2Health" style="left: 0"></div>
         </div>
