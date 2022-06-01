@@ -59,6 +59,10 @@ const p1 = new Fighter({
       imgSrc: "./assets/samuraiMack/Attack1.png",
       framesNo: 6,
     },
+    takeHit: {
+      imgSrc: "./assets/samuraiMack/take_hit.png",
+      framesNo: 4,
+    },
   },
   attackBox: {
     offset: {
@@ -107,6 +111,10 @@ const p2 = new Fighter({
     attack1: {
       imgSrc: "./assets/Kenji/Attack1.png",
       framesNo: 4,
+    },
+    takeHit: {
+      imgSrc: "./assets/Kenji/take_hit.png",
+      framesNo: 3,
     },
   },
   attackBox: {
@@ -197,7 +205,8 @@ const animationLoop = () => {
   ) {
     //  to prevent the multiple attacks << repeating hit serveral times >>
     p1.isAttacking = false;
-    p2.health -= 10;
+    p2.takeHit(10);
+    // p2.health -= 10;
     p2HealthBar.style.width = p2.health + "%";
   }
 
@@ -216,7 +225,7 @@ const animationLoop = () => {
   ) {
     //  to prevent the multiple attacks << repeating hit serveral times >>
     p2.isAttacking = false;
-    p1.health -= 6;
+    p1.takeHit(6);
     p1HealthBar.style.width = p1.health + "%";
   }
 

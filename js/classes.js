@@ -117,12 +117,12 @@ class Fighter extends Sprite {
     this.attackBox.position.y = this.position.y + this.attackBox.offset.y;
 
     // attack rectangle
-    c.fillRect(
-      this.attackBox.position.x,
-      this.attackBox.position.y,
-      this.attackBox.width,
-      this.attackBox.height
-    );
+    // c.fillRect(
+    //   this.attackBox.position.x,
+    //   this.attackBox.position.y,
+    //   this.attackBox.width,
+    //   this.attackBox.height
+    // );
 
     this.position.x += this.velocity.x;
     this.position.y += this.velocity.y;
@@ -140,10 +140,23 @@ class Fighter extends Sprite {
     this.isAttacking = true;
   }
 
+  takeHit(val) {
+    this.health -= val;
+    this.switchSpriteStates("takeHit");
+  }
+
   switchSpriteStates(sprite) {
+    // overriding all other animation when attack animation
     if (
       this.img === this.states.attack1.img &&
-      this.currentFrame < this.framesNo - 1
+      this.currentFrame < this.states.attack1.framesNo - 1
+    )
+      return;
+
+    // when player gets hit
+    if (
+      this.img === this.states.takeHit.img &&
+      this.currentFrame < this.states.takeHit.framesNo - 1
     )
       return;
 
@@ -180,6 +193,13 @@ class Fighter extends Sprite {
         if (this.img !== this.states.attack1.img) {
           this.img = this.states.attack1.img;
           this.framesNo = this.states.attack1.framesNo;
+          this.currentFrame = 0;
+        }
+        break;
+      case "takeHit":
+        if (this.img !== this.states.takeHit.img) {
+          this.img = this.states.takeHit.img;
+          this.framesNo = this.states.takeHit.framesNo;
           this.currentFrame = 0;
         }
         break;
