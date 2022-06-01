@@ -24,7 +24,7 @@ const matchResult = () => {
   } else result.innerText = "Player 2 Wins";
 };
 
-let timer = 20;
+let timer = 60;
 let timerId;
 
 const decreaseTimer = () => {

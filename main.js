@@ -79,7 +79,7 @@ const p2 = new Fighter({
     x: 0,
     y: 0,
   },
-  
+
   imgSrc: "./assets/Kenji/idle.png",
   framesNo: 4,
   scale: 2.5,
@@ -111,10 +111,10 @@ const p2 = new Fighter({
   },
   attackBox: {
     offset: {
-      x: 0,
-      y: 0,
+      x: -120,
+      y: 50,
     },
-    width: 100,
+    width: 240,
     height: 50,
   },
 });
@@ -178,8 +178,8 @@ const animationLoop = () => {
     p2.velocity.x = 5;
   } else p2.switchSpriteStates("idle");
 
-   // jump & fall sprite for p2
-   if (p2.velocity.y < 0) {
+  // jump & fall sprite for p2
+  if (p2.velocity.y < 0) {
     p2.switchSpriteStates("jump");
   } else if (p2.velocity.y > 1) {
     p2.switchSpriteStates("fall");
@@ -192,13 +192,17 @@ const animationLoop = () => {
       ele2: p2,
     }) &&
     // is attacking ??
-    p1.isAttacking
+    p1.isAttacking &&
+    p1.currentFrame === 4
   ) {
     //  to prevent the multiple attacks << repeating hit serveral times >>
     p1.isAttacking = false;
     p2.health -= 10;
     p2HealthBar.style.width = p2.health + "%";
   }
+
+  // if p1 misses
+  if (p1.isAttacking && p1.currentFrame === 4) p1.isAttacking = false;
 
   // detect for collision <<for p2>>
   if (
@@ -207,14 +211,17 @@ const animationLoop = () => {
       ele2: p1,
     }) &&
     // is attacking ??
-    p2.isAttacking
+    p2.isAttacking &&
+    p2.currentFrame === 2
   ) {
     //  to prevent the multiple attacks << repeating hit serveral times >>
     p2.isAttacking = false;
-    p1.health -= 10;
+    p1.health -= 6;
     p1HealthBar.style.width = p1.health + "%";
   }
 
+  // if p2 misses
+  if (p2.isAttacking && p2.currentFrame === 2) p2.isAttacking = false;
   // end game based on health
   if (p1.health <= 0 || p2.health <= 0) {
     matchResult();
