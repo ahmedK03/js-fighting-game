@@ -85,6 +85,7 @@ class Fighter extends Sprite {
     this.velocity = velocity;
     this.height = 150;
     this.width = 50;
+    this.dead = false;
     // saving last key state to fix the movement
     this.lastKey;
     // creating the attackBox
@@ -110,7 +111,7 @@ class Fighter extends Sprite {
 
   update() {
     this.draw();
-    this.animateFrames();
+    if (!this.dead) this.animateFrames();
 
     // update the attackBox position manually
     this.attackBox.position.x = this.position.x + this.attackBox.offset.x;
@@ -142,10 +143,20 @@ class Fighter extends Sprite {
 
   takeHit(val) {
     this.health -= val;
-    this.switchSpriteStates("takeHit");
+
+    if (this.health <= 0) {
+      this.switchSpriteStates("death");
+    } else this.switchSpriteStates("takeHit");
   }
 
   switchSpriteStates(sprite) {
+    // when player dies
+    if (this.img === this.states.death.img) {
+      if (this.currentFrame === this.states.death.framesNo - 1)
+        this.dead = true;
+      return;
+    }
+
     // overriding all other animation when attack animation
     if (
       this.img === this.states.attack1.img &&
@@ -200,6 +211,13 @@ class Fighter extends Sprite {
         if (this.img !== this.states.takeHit.img) {
           this.img = this.states.takeHit.img;
           this.framesNo = this.states.takeHit.framesNo;
+          this.currentFrame = 0;
+        }
+        break;
+      case "death":
+        if (this.img !== this.states.death.img) {
+          this.img = this.states.death.img;
+          this.framesNo = this.states.death.framesNo;
           this.currentFrame = 0;
         }
         break;

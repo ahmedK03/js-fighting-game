@@ -63,6 +63,10 @@ const p1 = new Fighter({
       imgSrc: "./assets/samuraiMack/take_hit.png",
       framesNo: 4,
     },
+    death: {
+      imgSrc: "./assets/samuraiMack/Death.png",
+      framesNo: 6,
+    },
   },
   attackBox: {
     offset: {
@@ -115,6 +119,10 @@ const p2 = new Fighter({
     takeHit: {
       imgSrc: "./assets/Kenji/take_hit.png",
       framesNo: 3,
+    },
+    death: {
+      imgSrc: "./assets/Kenji/Death.png",
+      framesNo: 7,
     },
   },
   attackBox: {
@@ -225,7 +233,7 @@ const animationLoop = () => {
   ) {
     //  to prevent the multiple attacks << repeating hit serveral times >>
     p2.isAttacking = false;
-    p1.takeHit(6);
+    p1.takeHit(5);
     p1HealthBar.style.width = p1.health + "%";
   }
 
@@ -241,35 +249,41 @@ const animationLoop = () => {
 animationLoop();
 
 window.addEventListener("keydown", ({ key }) => {
-  switch (key) {
-    case "w":
-      p1.velocity.y = -17;
-      break;
-    case "a":
-      keys.a.pressed = true;
-      p1.lastKey = "a";
-      break;
-    case "d":
-      keys.d.pressed = true;
-      p1.lastKey = "d";
-      break;
-    case " ":
-      p1.attack();
-      break;
-    case "k":
-      p2.attack();
-      break;
-    case "ArrowUp":
-      p2.velocity.y = -17;
-      break;
-    case "ArrowLeft":
-      keys.ArrowLeft.pressed = true;
-      p2.lastKey = "ArrowLeft";
-      break;
-    case "ArrowRight":
-      keys.ArrowRight.pressed = true;
-      p2.lastKey = "ArrowRight";
-      break;
+  if (!p1.dead) {
+    switch (key) {
+      case "w":
+        p1.velocity.y = -17;
+        break;
+      case "a":
+        keys.a.pressed = true;
+        p1.lastKey = "a";
+        break;
+      case "d":
+        keys.d.pressed = true;
+        p1.lastKey = "d";
+        break;
+      case " ":
+        p1.attack();
+        break;
+    }
+  }
+  if (!p2.dead) {
+    switch (key) {
+      case "k":
+        p2.attack();
+        break;
+      case "ArrowUp":
+        p2.velocity.y = -17;
+        break;
+      case "ArrowLeft":
+        keys.ArrowLeft.pressed = true;
+        p2.lastKey = "ArrowLeft";
+        break;
+      case "ArrowRight":
+        keys.ArrowRight.pressed = true;
+        p2.lastKey = "ArrowRight";
+        break;
+    }
   }
 });
 

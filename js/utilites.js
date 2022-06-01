@@ -12,11 +12,6 @@ const collisionDamageDetect = ({ ele1, ele2 }) => {
 const matchResult = () => {
   const result = document.querySelector("#matchResult");
   result.style.display = "flex";
-  p1.velocity.x = 0;
-  p1.velocity.y = 0;
-  // p2.velocity = { x: 0, y: 0 };
-  p2.velocity.x = 0;
-  p2.velocity.y = 0;
   if (p1.health === p2.health) {
     result.innerText = "Tie";
   } else if (p1.health > p2.health) {
