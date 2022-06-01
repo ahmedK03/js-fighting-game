@@ -12,6 +12,11 @@
 
 ![game demo](./assets/game_demo.gif)
 
+## Controllers:
+
+    -For p1: w,a,s,d and space for attack
+    -FOr p2: arrow keys and "k" for attack
+
 ---
 
 ## Resources:
